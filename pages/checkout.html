@@ -3,65 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Coming Soon | CoCoMokio</title>
-        <link rel="shortcut icon" href="../Images/CMC logo.png" type="image/x-icon">
+        <title>Checkout | CoCoMokio</title>
+        <link rel="shortcut icon" href="../Images/CMC logo.svg" type="image/svg+xml">
         <link rel="stylesheet" href="../DarkStyles.css">
         <script src="../scripts/site.js" defer></script>
-        <style>
-            .coming-soon {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 80px 24px;
-                box-sizing: border-box;
-                position: relative;
-                overflow: hidden;
-            }
-
-            /* soft ambient glow behind the text */
-            .coming-soon::before {
-                content: "";
-                position: absolute;
-                left: calc(clamp(24px, 33.333vw, 480px) - 24px);
-                top: 50%;
-                width: min(520px, 80vw);
-                height: min(520px, 80vw);
-                border-radius: 50%;
-                transform: translateY(-50%);
-                background: radial-gradient(
-                    circle,
-                    rgba(109, 94, 252, 0.18) 0%,
-                    rgba(184, 108, 245, 0.08) 40%,
-                    transparent 70%
-                );
-                pointer-events: none;
-                z-index: 0;
-            }
-
-            .coming-soon h1 {
-                position: relative;
-                z-index: 1;
-                margin: 0 0 0 clamp(24px, 33.333vw, 480px);
-                font-size: clamp(3rem, 12vw, 6.5rem);
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                line-height: 1.05;
-                text-align: left;
-            }
-        </style>
+        <script src="../scripts/store/ranks.js" defer></script>
+        <script src="../scripts/store/items.js" defer></script>
+        <script src="../scripts/store-grid.js" defer></script>
+        <script src="../scripts/store.js" defer></script>
     </head>
     <body>
-        <div data-shared-header
-             data-title="Coming Soon"
-             data-title-class="page-title"
-             data-title-href="../index.html"
-             data-account-links></div>
-
-        <section class="coming-soon" aria-label="Coming soon">
-            <h1 class="gradient">Coming<br>Soon</h1>
-        </section>
-
+        <div data-shared-header data-title="Store" data-title-class="store-title" data-history-link data-account-links data-store-navigation data-shopping-cart data-checkout-title></div>
+        <section class="store-page" data-store-view="checkout"></section>
         <div data-shared-footer></div>
     </body>
 </html>

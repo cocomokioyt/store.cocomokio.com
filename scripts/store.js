@@ -210,7 +210,7 @@
                 const email = typed("#mc-email") ?? "";
                 const items = lines();
                 if (!items.length) {
-                    el.innerHTML = `<div class="panel">${tplEmpty(`Your cart is empty.<br><br><a class="btn" href="https://store.cocomokio.com/">Back to the store</a>`)}</div>`;
+                    el.innerHTML = `<div class="panel">${tplEmpty(`Your cart is empty.<br><br><a class="btn" href="${(window.Mokio && window.Mokio.siteUrl) ? window.Mokio.siteUrl("store", "/") : "https://store.cocomokio.com/"}">Back to the store</a>`)}</div>`;
                     return;
                 }
                 el.innerHTML = `
@@ -275,7 +275,7 @@
         details: (id) => {
             const rankAction = storeGrid.resolveDetails(id);
             if (rankAction?.custom) {
-                location.href = "https://store.cocomokio.com/pages/custom-rank.html";
+                location.href = (window.Mokio && window.Mokio.siteUrl) ? window.Mokio.siteUrl("store", "/pages/custom-rank.html") : "https://store.cocomokio.com/pages/custom-rank.html";
                 return;
             }
             openDetails(rankAction?.id || id);

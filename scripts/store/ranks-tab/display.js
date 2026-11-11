@@ -6,7 +6,7 @@
     if (!element) return;
 
     const renderRankCard = (rank, plan) => rank.id === "r5" ? `
-        <a class="tier custom-rank-link" href="https://store.cocomokio.com/pages/custom-rank.html">
+        <a class="tier custom-rank-link" href="${(window.Mokio && window.Mokio.siteUrl) ? window.Mokio.siteUrl("store", "/pages/custom-rank.html") : "https://store.cocomokio.com/pages/custom-rank.html"}">
             <h3>${rank.name}</h3>
             <div class="rank-price">${ranks.rankPriceLabel(rank, plan)} <small>starting per ${ranks.plans()[plan].per}</small></div>
             <div class="rank-note">${plan === "year" ? "1 month off" : "&nbsp;"}</div>
