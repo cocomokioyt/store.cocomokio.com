@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Build a Custom Rank | CoCoMokio</title>
+        <link rel="shortcut icon" href="../Images/CMC logo.svg" type="image/svg+xml">
+        <link rel="stylesheet" href="../DarkStyles.css">
+        <script src="../scripts/site.js" defer></script>
+        <script src="../scripts/store/ranks.js" defer></script>
+        <script src="../scripts/store/items.js" defer></script>
+        <script src="../scripts/store-grid.js" defer></script>
+        <script src="../scripts/store.js" defer></script>
+    </head>
+    <body>
+        <div data-shared-header data-title="Custom Rank" data-title-class="store-title" data-title-href="https://store.cocomokio.com/pages/ranks.html" data-account-links data-store-navigation data-shopping-cart></div>
+        <main class="store-page">
+            <section class="store-hero">
+                <div>
+                    <h2>Build a Custom Rank</h2>
+                    <p>Choose the perks and quantities for your rank. Every custom rank includes a custom rank name and starts at $5.99 per month.</p>
+                </div>
+                <a class="btn" href="ranks.html">Back to ranks</a>
+            </section>
+            <form class="custom-rank-layout" data-custom-rank-form>
+                <div class="custom-rank-options panel">
+                    <div class="custom-name-preview">
+                        <span class="badge static">CUSTOM RANK</span>
+                        <h2>Custom rank name: <span data-custom-name-preview>My Rank</span></h2>
+                        <p>This custom rank name is always included. Enter the name players will see.</p>
+                    </div>
+                    <div class="field">
+                        <label for="custom-rank-name">Your rank name</label>
+                        <input id="custom-rank-name" name="rankName" maxlength="108" placeholder="e.g. Starfish" value="My Rank" required>
+                        <p class="note">Rank names have a 12-character limit; color codes don't count. Add <code>&amp;#rrggbb</code> before letters to make a gradient. Build one with <a href="https://www.birdflop.com/resources/rgb/" target="_blank" rel="noopener noreferrer">Birdflop's gradient generator</a>, then paste it here.</p>
+                    </div>
+                    <section class="custom-chat-preview" aria-labelledby="custom-chat-preview-title">
+                        <h3 id="custom-chat-preview-title">Chat preview</h3>
+                        <div class="field">
+                            <label for="custom-preview-color">Preview one of your selected chat colors</label>
+                            <select id="custom-preview-color" data-custom-preview-color></select>
+                            <p class="note">This only changes the preview. Choose which chat colors to buy in the Chat colors section below.</p>
+                        </div>
+                        <p class="custom-chat-line" aria-label="Example in-game chat">
+                            <strong data-custom-preview-rank>[My Rank]</strong>
+                            <span> - <span data-custom-preview-user>USER</span>: </span><span data-custom-chat-preview>Chat color</span>
+                        </p>
+                    </section>
+                    <h2>Choose permissions</h2>
+                    <p class="note">Each selected permission or increase adds its listed monthly price.</p>
+                    <div class="custom-permission-list">
+                        <div class="custom-item-group">
+                            <h3>Choose a rank kit</h3>
+                            <p>Select a tier from the existing ranks. Your kit selection adds its monthly price.</p>
+                        </div>
+                        <div data-custom-rank-items></div>
+                        <div data-custom-toggles></div>
+                        <div data-custom-colors></div>
+                        <div class="custom-item-group">
+                            <h3>Kit cooldown</h3>
+                            <p>Start with a free 24-hour cooldown. Reduce it by 1 hour for +$2/month per hour, down to 2 hours.</p>
+                            <label class="custom-permission custom-permission-range" for="custom-kit-cooldown">
+                                <span>
+                                    <strong>Cooldown: <output data-custom-cooldown-value>24 hours</output></strong>
+                                    <small data-custom-cooldown-price>Included free</small>
+                                </span>
+                                <input id="custom-kit-cooldown" type="range" min="2" max="24" step="1" value="24" data-custom-cooldown aria-label="Kit cooldown in hours">
+                            </label>
+                        </div>
+                        <div data-custom-quantities></div>
+                    </div>
+                </div>
+                <aside class="custom-rank-summary panel">
+                    <h2>Your rank</h2>
+                    <p><strong>Custom Rank</strong> · <span data-custom-name-summary>My Rank</span></p>
+                    <div class="billing-toggle" role="group" aria-label="Billing period">
+                        <button type="button" data-custom-plan="month" aria-pressed="true">Monthly</button>
+                        <button type="button" data-custom-plan="year" aria-pressed="false">Yearly <span class="save">1 month off</span></button>
+                    </div>
+                    <p class="custom-total" data-custom-total aria-live="polite"></p>
+                    <p class="note" data-custom-price-note></p>
+                    <button class="wide" type="submit">Add custom rank to cart</button>
+                    <p class="note">Yearly billing charges for 11 months. Your selected permissions are included in the displayed price.</p>
+                    <p class="note" data-custom-status role="status"></p>
+                </aside>
+            </form>
+        </main>
+        <div data-shared-footer></div>
+
+    </body>
+</html>
