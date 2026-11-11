@@ -1,44 +1,35 @@
 /* =========================================================
    CoCoMokio — shared site script
-   Renders header + footer.
-   Same-site links stay relative (no extra redirect).
-   Cross-site links use the real domains.
+   Renders header + footer. Cross-site links use real domains.
+   Store nav matches original: separate store-nav pills.
    ========================================================= */
 (() => {
-    const PROD_MAIN   = "https://www.cocomokio.com";
-    const PROD_STORE  = "https://store.cocomokio.com";
-    const PROD_SOCIAL = "https://social.cocomokio.com";
+    const MAIN   = "https://www.cocomokio.com";
+    const STORE  = "https://store.cocomokio.com";
+    const SOCIAL = "https://social.cocomokio.com";
 
     const host = (location.hostname || "").toLowerCase();
     const onMain   = host === "www.cocomokio.com" || host === "cocomokio.com";
     const onStore  = host === "store.cocomokio.com";
     const onSocial = host === "social.cocomokio.com";
-    const isProd   = onMain || onStore || onSocial;
 
-    // Build a URL for a given site. Same-origin → path only (no redirect hop).
-    // Other origin / unknown host → absolute production URL.
     function siteUrl(which, path) {
         const p = path.startsWith("/") ? path : "/" + path;
         if (which === "main") {
             if (onMain) return p === "/" ? "/" : p;
-            return PROD_MAIN + (p === "/" ? "/" : p);
+            return MAIN + (p === "/" ? "/" : p);
         }
         if (which === "store") {
             if (onStore) return p === "/" ? "/" : p;
-            return PROD_STORE + (p === "/" ? "/" : p);
+            return STORE + (p === "/" ? "/" : p);
         }
         if (which === "social") {
             if (onSocial) return p === "/" ? "/" : p;
-            return PROD_SOCIAL + (p === "/" ? "/" : p);
+            return SOCIAL + (p === "/" ? "/" : p);
         }
         return p;
     }
 
-    const MAIN   = isProd ? PROD_MAIN   : PROD_MAIN;
-    const STORE  = isProd ? PROD_STORE  : PROD_STORE;
-    const SOCIAL = isProd ? PROD_SOCIAL : PROD_SOCIAL;
-
-    // Local asset root (scripts/ → site root)
     const root = new URL("../", document.currentScript.src);
     const asset = (path) => new URL(path, root).href;
 
@@ -65,15 +56,7 @@
         },
     };
 
-    window.Mokio = {
-        url: asset,
-        CATEGORIES,
-        user,
-        MAIN: PROD_MAIN,
-        STORE: PROD_STORE,
-        SOCIAL: PROD_SOCIAL,
-        siteUrl,
-    };
+    window.Mokio = { url: asset, CATEGORIES, user, MAIN, STORE, SOCIAL, siteUrl };
 
     const link = (href, text, cls = "") => {
         let current = false;
@@ -97,19 +80,17 @@
         const has = (name) => name in el.dataset;
         const goesBack = has("historyLink");
 
-        let storeMenu = "";
-        if (has("storeNavigation")) {
-            // Spaces between links so "Home Ranks Items" does not run together
-            storeMenu = `
-                <nav class="store-nav" aria-label="Store categories">
-                    ${link(siteUrl("store", "/"), "Home")}
-                    ${link(CATEGORIES.ranks.page, "Ranks")}
-                    ${link(CATEGORIES.items.page, "Items")}
-                </nav>`;
-        }
+        // Original pattern: ul.store-menu → li → a.store-nav (separate pills)
+        const storeMenu = has("storeNavigation") ? `
+            <ul class="store-menu">
+                <li>${link(siteUrl("store", "/"), "Home", "store-nav")}</li>
+                ${Object.values(CATEGORIES).map(({ title: t, page }) =>
+                    `<li>${link(page, t, "store-nav")}</li>`
+                ).join("")}
+            </ul>` : "";
 
         const cart = has("shoppingCart") ? `
-            <a class="cart" href="${siteUrl("store", "/pages/checkout.html")}" aria-label="Shopping cart">
+            <a class="cart-link" href="${siteUrl("store", "/pages/checkout.html")}" aria-label="Shopping cart">
                 <img class="icon" src="${asset("Images/Shopping cart.svg")}" alt="">
                 <span class="cart-count"></span>
             </a>` : "";
